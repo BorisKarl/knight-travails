@@ -1,7 +1,4 @@
-const content = document.getElementById("content");
-
-// content.innerHTML= "MOIN";
-
+// Node class for storing the data of the field and the path
 class Node {
     constructor(data) {
         this.data = data;
@@ -9,11 +6,11 @@ class Node {
     }
 } 
 
+// build an array of possible moves without the starting position
 const possibleMoves = ([x, y]) => {
   let array = [];
   for (let i = -2; i < 3; i++) {
     if (i === 0) {
-      // array.unshift([x, y]);
       i++;
     }
 
@@ -49,6 +46,7 @@ const possibleMoves = ([x, y]) => {
   return array;
 };
 
+// build an array with the lenght of 64 and the corresponding possible moves per field
 const buildChessArray = () => {
   let result = [];
   let chessBoard = [];
@@ -60,11 +58,11 @@ const buildChessArray = () => {
   chessBoard.forEach((e) => {
     result.push(possibleMoves(e));
   });
-  // console.log(result);
+  console.log(result);
   return result;
 };
 
-// from jotafer19 github
+// has this field been visited?
 const isVisited = (node, array) => {
   array.forEach((element) => {
     if (element[0] === node.data[0] && element[1] === node.data[1]) return true;
@@ -73,6 +71,7 @@ const isVisited = (node, array) => {
   return false;
 }
 
+// here the magic happens
 function knightMoves(
   start,
   end,
@@ -100,6 +99,7 @@ function knightMoves(
   return knightMoves(queue[0].data, end, queue, visitedNodes);
 }
 
+// helper function with input check
 function getMoves(start, end) {
      if (
        start[0] < 0 ||
@@ -125,4 +125,3 @@ function getMoves(start, end) {
 getMoves([0, 0], [7, 7]);
 getMoves([1,1],[5,5]);
 getMoves([-1,2],[-5,0]);
-// content.textContent(getMoves([0,0], [7,7]));
