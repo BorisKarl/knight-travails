@@ -5,8 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="index.js" defer></script>
     <title>Knight Travails</title>
+    <style>
+        #content {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: large;
+            display: block;
+            text-align: center;
+            margin-top: 10%;
+        }
+    </style>
 </head>
 <body>
-    <div class="content" id="content"></div>
+    <div class="content" id="content">
+        <div class="input_content">
+             <h2>Input start and end coordinates between 0,0 and 7,7 seperated with a comma</h2>
+        <form action="" method="get" id=""form>
+            <label for="start">
+                <input type="text" name="start" id="start" placeholder="start">
+            </label>
+            <label for="end">
+                <input type="text" name="end" id="end" placeholder="end">
+            </label>
+            <label for="submitButton">
+                <input type="button" value="submit" id="submitButton">           
+            </label>
+        </form>
+        </div>
+    </div>
 </body>
+
 </html>

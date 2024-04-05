@@ -1,10 +1,12 @@
 // Node class for storing the data of the field and the path
 class Node {
-    constructor(data) {
-        this.data = data;
-        this.path =[data];
-    }
-} 
+  constructor(data) {
+    this.data = data;
+    this.path = [data];
+  }
+}
+
+const content = document.getElementById("content");
 
 // build an array of possible moves without the starting position
 const possibleMoves = ([x, y]) => {
@@ -69,7 +71,7 @@ const isVisited = (node, array) => {
   });
   array.push(node.data);
   return false;
-}
+};
 
 // here the magic happens
 function knightMoves(
@@ -78,8 +80,7 @@ function knightMoves(
   queue = [new Node(start)],
   visitedNodes = [start]
 ) {
-
-      if (start[0] === end[0] && start[1] === end[1]) return queue.shift();
+  if (start[0] === end[0] && start[1] === end[1]) return queue.shift();
 
   if (!queue.length) return;
 
@@ -101,27 +102,66 @@ function knightMoves(
 
 // helper function with input check
 function getMoves(start, end) {
-     if (
-       start[0] < 0 ||
-       start[0] > 7 ||
-       start[1] < 0 ||
-       start[1] > 7 ||
-       end[0] < 0 ||
-       end[0] > 7 ||
-       end[0] < 0 ||
-       end[0] > 7
-     ) {
-        console.log(`${start}/${end} out of range!`)
-        return;
-     }
-       
   const movePath = knightMoves(start, end).path;
+  const h2 = document.createElement("h2");
+  if (
+    start[0] < 0 ||
+    start[0] > 7 ||
+    start[1] < 0 ||
+    start[1] > 7 ||
+    end[0] < 0 ||
+    end[0] > 7 ||
+    end[0] < 0 ||
+    end[0] > 7
+  ) {
+    console.log(`${start}/${end} out of range!`);
+    return;
+  }
+
+  h2.textContent = `You made it from start [${start}] to [${end}] in ${
+    movePath.length - 1
+  } moves! Here is your path:`;
+  const h3 = document.createElement("h3");
+  movePath.forEach((move) => (h3.textContent += `[${move}] `));
+  h2.appendChild(h3);
+  content.appendChild(h2);
+
   console.log(
     `You made it in ${movePath.length - 1} moves! Here is your path:`
   );
   movePath.forEach((move) => console.log(move));
 }
 
-getMoves([0, 0], [7, 7]);
-getMoves([1,1],[5,5]);
-getMoves([-1,2],[-5,0]);
+
+const start = document.getElementById("start");
+const end = document.getElementById("end");
+const submitButton = document.getElementById("submitButton");
+const input_content = document.querySelector(".input_content");
+const reset = document.createElement("button");
+reset.textContent = "RESET";
+reset.addEventListener("click", () => {
+  location.reload();
+});
+
+submitButton.addEventListener("click", () => {
+  let s = [];
+  let e = [];
+  s.push(parseInt(start.value[0]), parseInt(start.value[2]));
+  e.push(parseInt(end.value[0]), parseInt(end.value[2]));
+  input_content.innerHTML = "";
+  if (
+    parseInt(start.value) < 0 ||
+    parseInt(start.value) > 7 ||
+    parseInt(end.value) < 0 ||
+    parseInt(end.value) > 7
+  ) {
+    alert("Illegal input");
+    location.reload();
+    return;
+  } else {
+    getMoves(s, e);
+    content.appendChild(reset);
+  }
+
+  // console.log(typeof(s[0]))
+});
