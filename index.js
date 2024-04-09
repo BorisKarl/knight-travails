@@ -153,7 +153,9 @@ submitButton.addEventListener("click", () => {
     parseInt(start.value) < 0 ||
     parseInt(start.value) > 7 ||
     parseInt(end.value) < 0 ||
-    parseInt(end.value) > 7
+    parseInt(end.value) > 7 ||
+    !start.value ||
+    !end.value
   ) {
     alert("Illegal input");
     location.reload();
